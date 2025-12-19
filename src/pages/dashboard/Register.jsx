@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { subdomainAPI } from "@/lib/api";
 import { useAuth } from "@/context/auth-context";
 import { Globe, CheckCircle, XCircle, AlertCircle, Loader2, Sparkles, Info } from "lucide-react";
 import RESERVED_SUBDOMAINS from "@/lib/reserved";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Register() {
     const [domain, setDomain] = useState("");
@@ -18,6 +19,8 @@ export default function Register() {
     const [errorMsg, setErrorMsg] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [acceptedToS, setAcceptedToS] = useState(false);
+    const [captchaToken, setCaptchaToken] = useState(null);
+    const captchaRef = useRef(null);
 
     const { subdomains, refresh } = useDashboard();
     const { user, checkAuth } = useAuth();
@@ -130,10 +133,22 @@ export default function Register() {
             return;
         }
 
+        if (!captchaToken) {
+            toast({
+                title: "Complete CAPTCHA",
+                description: "Please complete the CAPTCHA verification to prove you're human.",
+                variant: "destructive"
+            });
+            return;
+        }
+
         setIsSubmitting(true);
         try {
             const domainLower = domain.toLowerCase().trim();
-            await subdomainAPI.create({ name: domainLower });
+            await subdomainAPI.create({
+                name: domainLower,
+                captchaToken
+            });
 
             toast({
                 title: "Domain Registered Successfully! 🎉",
@@ -329,13 +344,24 @@ export default function Register() {
                                     </label>
                                 </div>
                             </div>
+
+                            {/* hCaptcha */}
+                            <div className="flex justify-center">
+                                <HCaptcha
+                                    ref={captchaRef}
+                                    sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY || "10000000-ffff-ffff-ffff-000000000001"}
+                                    onVerify={(token) => setCaptchaToken(token)}
+                                    onExpire={() => setCaptchaToken(null)}
+                                    onError={() => setCaptchaToken(null)}
+                                />
+                            </div>
                         </>
                     )}
 
                     {/* Register Button */}
                     <Button
                         onClick={handleRegister}
-                        disabled={!isAvailable || !acceptedToS || isSubmitting || !canRegisterMore}
+                        disabled={!isAvailable || !acceptedToS || !captchaToken || isSubmitting || !canRegisterMore}
                         className="w-full bg-[#FFD23F] hover:bg-[#FFB800] text-[#1A1A1A] font-extrabold py-6 text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[4px_4px_0px_0px_#1A1A1A] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] disabled:shadow-none"
                     >
                         {isSubmitting ? (

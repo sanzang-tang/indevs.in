@@ -25,7 +25,7 @@ export default function Register() {
     const [captchaToken, setCaptchaToken] = useState(import.meta.env.DEV ? "dev-bypass" : null);
     const captchaRef = useRef(null);
 
-    const availableDomains = ["indevs.in", "sryze.cc", "ryzedns.org", "nx.kg"];
+    const availableDomains = ["indevs.in", "sryze.cc", "ryzedns.org", "nx.kg", "ryzn.pro"];
 
     const { subdomains, refresh } = useDashboard();
     const { user, checkAuth } = useAuth();
@@ -51,7 +51,7 @@ export default function Register() {
             checkAuth();
             toast({
                 title: `🎉 GitHub Verified! Welcome, @${githubUser || 'you'}`,
-                description: 'GitHub verification confirmed! You can now register your sryze.cc, ryzedns.org, or nx.kg domain.',
+                description: 'GitHub verification confirmed! You can now register your sryze.cc, ryzedns.org, nx.kg, or ryzn.pro domain.',
                 className: 'bg-green-50 border-green-200 text-green-900'
             });
         } else if (kyc === 'not_verified') {
@@ -103,23 +103,27 @@ export default function Register() {
     // For indevs.in: unverified users are capped at 1 free domain regardless of stored domainLimit.
     // githubVerified covers BOTH old manually-approved users AND new star-KYC users.
     //
-    // IMPORTANT: For ryzedns.org, sryze.cc, and nx.kg we count from the actual subdomains list
+    // IMPORTANT: For ryzedns.org, sryze.cc, nx.kg, and ryzn.pro we count from the actual subdomains list
     // (same source of truth as Domains.jsx) rather than the counter fields (ryzeDnsDomainsCount /
-    // sryzeDomainsCount / nxKgDomainsCount) which can drift if a DNS failure rollback or timing issue occurs.
+    // sryzeDomainsCount / nxKgDomainsCount / ryznProDomainsCount) which can drift if a DNS failure rollback or timing issue occurs.
     const domainLimit = rootDomain === 'sryze.cc'
         ? (user?.sryzeDomainsLimit || 1)
         : rootDomain === 'ryzedns.org'
             ? (user?.ryzeDnsDomainsLimit || 1)
             : rootDomain === 'nx.kg'
                 ? (user?.nxKgDomainsLimit || 1)
-                : (user?.githubVerified ? (user?.domainLimit || 1) : 1);
+                : rootDomain === 'ryzn.pro'
+                    ? (user?.ryznProDomainsLimit || 1)
+                    : (user?.githubVerified ? (user?.domainLimit || 1) : 1);
     const domainsRegistered = rootDomain === 'sryze.cc'
         ? (subdomains?.filter(s => s.domain === 'sryze.cc' && !s.deletedAt).length || 0)
         : rootDomain === 'ryzedns.org'
             ? (subdomains?.filter(s => s.domain === 'ryzedns.org' && !s.deletedAt).length || 0)
             : rootDomain === 'nx.kg'
                 ? (subdomains?.filter(s => s.domain === 'nx.kg' && !s.deletedAt).length || 0)
-                : (user?.domainsCount || 0);
+                : rootDomain === 'ryzn.pro'
+                    ? (subdomains?.filter(s => s.domain === 'ryzn.pro' && !s.deletedAt).length || 0)
+                    : (user?.domainsCount || 0);
     const canRegisterMore = domainsRegistered < domainLimit;
     const usagePercentage = (domainsRegistered / domainLimit) * 100;
 
@@ -428,7 +432,7 @@ export default function Register() {
                         const needsKyc = !user?.githubVerified;
                         if (!needsKyc) return null;
 
-                        const isSryzeOrRyzeDns = rootDomain === 'sryze.cc' || rootDomain === 'ryzedns.org' || rootDomain === 'nx.kg';
+                        const isSryzeOrRyzeDns = rootDomain === 'sryze.cc' || rootDomain === 'ryzedns.org' || rootDomain === 'nx.kg' || rootDomain === 'ryzn.pro';
                         return (
                             <div className="bg-amber-50/50 dark:bg-amber-500/10 border border-amber-200/50 dark:border-amber-500/20 rounded-xl p-4 sm:p-5">
                                 <div className="flex items-start gap-3">

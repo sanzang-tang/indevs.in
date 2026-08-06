@@ -307,7 +307,7 @@ export default function MyDomains() {
                         </div>
 
                         {/* nx.kg Usage */}
-                        <div className="mb-2">
+                        <div className="mb-4">
                             <div className="flex items-center justify-between mb-1">
                                 <span className="text-xs font-semibold text-slate-900 dark:text-white">nx.kg Domains</span>
                                 <span className="text-xs text-slate-900 dark:text-white">
@@ -323,6 +323,27 @@ export default function MyDomains() {
                                                 : 'bg-violet-600'
                                         }`}
                                     style={{ width: `${Math.min(((subdomains?.filter(s => s.domain === 'nx.kg').length || 0) / (user?.nxKgDomainsLimit || 1) * 100), 100)}%` }}
+                                ></div>
+                            </div>
+                        </div>
+
+                        {/* ryzn.pro Usage */}
+                        <div className="mb-2">
+                            <div className="flex items-center justify-between mb-1">
+                                <span className="text-xs font-semibold text-slate-900 dark:text-white">ryzn.pro Domains</span>
+                                <span className="text-xs text-slate-900 dark:text-white">
+                                    {subdomains?.filter(s => s.domain === 'ryzn.pro').length || 0} / {user?.ryznProDomainsLimit || 1}
+                                </span>
+                            </div>
+                            <div className="w-full bg-[#E5E7EB] dark:bg-white/10 rounded-full h-2">
+                                <div
+                                    className={`h-2 rounded-full transition-all ${((subdomains?.filter(s => s.domain === 'ryzn.pro').length || 0) / (user?.ryznProDomainsLimit || 1) * 100) >= 100
+                                            ? 'bg-red-600'
+                                            : ((subdomains?.filter(s => s.domain === 'ryzn.pro').length || 0) / (user?.ryznProDomainsLimit || 1) * 100) >= 80
+                                                ? 'bg-amber-500'
+                                                : 'bg-emerald-600'
+                                        }`}
+                                    style={{ width: `${Math.min(((subdomains?.filter(s => s.domain === 'ryzn.pro').length || 0) / (user?.ryznProDomainsLimit || 1) * 100), 100)}%` }}
                                 ></div>
                             </div>
                         </div>

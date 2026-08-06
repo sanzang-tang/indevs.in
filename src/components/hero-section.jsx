@@ -8,6 +8,7 @@ const DOMAINS = [
   { tld: "sryze.cc", label: ".sryze.cc" },
   { tld: "ryzedns.org", label: ".ryzedns.org" },
   { tld: "nx.kg", label: ".nx.kg" },
+  { tld: "ryzn.pro", label: ".ryzn.pro" },
 ];
 
 export function HeroSection() {

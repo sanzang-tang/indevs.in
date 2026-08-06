@@ -354,6 +354,12 @@ export default function Settings() {
                                     <span className="font-bold text-slate-900 dark:text-white">{user?.nxKgDomainsLimit || 1} domain{(user?.nxKgDomainsLimit || 1) > 1 ? "s" : ""}</span>
                                 </div>
                             )}
+                            {user?.githubVerified && (
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="font-medium text-slate-900 dark:text-white">ryzn.pro</span>
+                                    <span className="font-bold text-slate-900 dark:text-white">{user?.ryznProDomainsLimit || 1} domain{(user?.ryznProDomainsLimit || 1) > 1 ? "s" : ""}</span>
+                                </div>
+                            )}
                         </div>
 
                     </div>

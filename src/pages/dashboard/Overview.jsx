@@ -110,7 +110,7 @@ export default function Overview() {
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-green-800 dark:text-green-300">KYC Verified</p>
-                        <p className="text-xs text-green-600 dark:text-green-400/80">GitHub identity verified — you have access to sryze.cc, ryzedns.org & nx.kg domains & higher limits</p>
+                        <p className="text-xs text-green-600 dark:text-green-400/80">GitHub identity verified — you have access to sryze.cc, ryzedns.org, nx.kg & ryzn.pro domains & higher limits</p>
                     </div>
                     <span className="shrink-0 text-xs font-bold px-2.5 py-1 bg-green-600 dark:bg-green-500/20 text-white dark:text-green-400 rounded-full">Verified</span>
                 </div>
@@ -124,7 +124,7 @@ export default function Overview() {
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-amber-900 dark:text-amber-200">KYC Not Verified</p>
-                        <p className="text-xs text-amber-700 dark:text-amber-400/80">Complete GitHub verification to unlock sryze.cc, ryzedns.org &amp; nx.kg domains and extra limits</p>
+                        <p className="text-xs text-amber-700 dark:text-amber-400/80">Complete GitHub verification to unlock sryze.cc, ryzedns.org, nx.kg &amp; ryzn.pro domains and extra limits</p>
                     </div>
                     <span className="shrink-0 text-xs font-bold px-2.5 py-1 border border-amber-400 dark:border-amber-500/50 text-amber-700 dark:text-amber-400 rounded-full group-hover:bg-amber-400 group-hover:text-white dark:group-hover:bg-amber-500 dark:group-hover:text-amber-950 transition-colors">
                         Verify →
@@ -219,7 +219,7 @@ export default function Overview() {
                     </div>
                     <h3 className="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Register your first domain 🎉</h3>
                     <p className="text-sm text-slate-900 dark:text-white mb-5 max-w-sm mx-auto">
-                        It's free, instant, and takes under a minute. Get a personal <strong>.indevs.in</strong>, <strong>.sryze.cc</strong>, <strong>.ryzedns.org</strong>, or <strong>.nx.kg</strong> subdomain.
+                        It's free, instant, and takes under a minute. Get a personal <strong>.indevs.in</strong>, <strong>.sryze.cc</strong>, <strong>.ryzedns.org</strong>, <strong>.nx.kg</strong>, or <strong>.ryzn.pro</strong> subdomain.
                     </p>
                     <Link
                         to="/register"

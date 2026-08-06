@@ -1,4 +1,4 @@
-import { Globe2, Sparkles, Server, Zap } from "lucide-react";
+import { Globe2, Sparkles, Server, Zap, Shield } from "lucide-react";
 
 export function DomainExtensionsSection() {
   const extensions = [
@@ -33,6 +33,14 @@ export function DomainExtensionsSection() {
       accent: "from-purple-500 to-pink-500",
       iconColor: "text-purple-500",
       bgHover: "hover:bg-purple-50/50"
+    },
+    {
+      ext: ".ryzn.pro",
+      description: "A premium, pro-grade domain namespace for developer tools, SaaS applications, and professional web services.",
+      icon: Shield,
+      accent: "from-cyan-500 to-blue-600",
+      iconColor: "text-cyan-500",
+      bgHover: "hover:bg-cyan-50/50"
     }
   ];
 
@@ -43,11 +51,11 @@ export function DomainExtensionsSection() {
           Available Namespaces
         </h2>
         <p className="max-w-xl mx-auto text-sm md:text-base text-slate-900 dark:text-white opacity-80 leading-relaxed font-medium">
-          Four unique extensions. Infinite possibilities. Claim yours instantly.
+          Five unique extensions. Infinite possibilities. Claim yours instantly.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 md:gap-4 w-full xl:w-fit mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 w-full xl:w-fit mx-auto">
         {extensions.map((item, idx) => (
           <div
             key={idx}
